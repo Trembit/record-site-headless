@@ -1,8 +1,8 @@
-###Build docker###
+###Build docker
 
     docker build -t web-video-capture .
 
-###Run Container###
+###Run Container
     docker run -p 5900:5900 \
         -v /Users/bohdan/Projects/web-video-capture/videos:/home/apps/videos \
         -e VNC_SERVER_PASSWORD=password \
@@ -10,6 +10,7 @@
         --user apps \
         --privileged web-video-capture
 
-NOTICE. In order to stop capturing and not to campromize the mp4 output video. 
+NOTICE. In order to stop capturing and not to compromise the mp4 output video run the following command.
 
-docker exec <container_id> pkill ffmpeg
+##Stop recording
+    docker exec <container_id> pkill ffmpeg
