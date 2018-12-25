@@ -2,6 +2,9 @@
 
 # Based on: http://www.richud.com/wiki/Ubuntu_Fluxbox_GUI_with_x11vnc_and_Xvfb
 
+JOB_ID=$1
+CAPTURE_URL=$2
+
 main() {
     log_i "Starting audio server..."
     run_audio_server
@@ -115,10 +118,18 @@ start_capturing() {
     #     -f x11grab \
     #     -r 25 -s 1280x960 -i :1 -b:v 3m /home/apps/videos/out.mpeg
 
-    ffmpeg -y \
+    # With 20 seconds timeout
+    timeout 10 \
+    ffmpeg -y -loglevel panic \
         -f pulse -ac 2 -i default \
         -f x11grab \
-        -r 25 -s 1280x960 -i :1 -c:v libx264 -b:v 3M -strict -2 -movflags faststart /home/apps/videos/out.mp4
+        -r 25 -s 1280x960 -i :1 -c:v libx264 -b:v 3M -strict -2 -movflags faststart "/home/apps/videos/${JOB_ID}.mp4"
+
+    cd  /home/apps/videos
+    # $(aws ecr get-login --region ${AWS_DEFAULT_REGION} )
+    echo "OK"
+    # aws configure
+    aws s3 cp --acl public-read "${JOB_ID}.mp4" s3://trembit-hackaton2018/
 
 }
 
