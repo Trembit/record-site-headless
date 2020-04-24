@@ -4,9 +4,8 @@ RUN apt-get update
 
 RUN apt-get install software-properties-common -y
 
-RUN add-apt-repository ppa:jonathonf/ffmpeg-3 && \
-    apt-get update && apt-get clean && apt-get install -y \
-    ffmpeg libav-tools x264 x265 \
+RUN add-apt-repository ppa:jonathonf/ffmpeg-4 && \
+    apt-get update && apt-get install -y ffmpeg libav-tools x264 x265 \
     alsa-base alsa-utils pulseaudio \
     curl \
     x11vnc \
@@ -39,4 +38,4 @@ USER apps
 ENV VNC_SERVER_PASSWORD=password
 ENV CAPTURE_URL="https://www.youtube.com/watch?v=-oIJvTaUKyM"
 
-CMD '/bootstrap.sh'
+CMD ["/bootstrap.sh", "last-video", "https://sdcast.ksdaemon.ru/podlove/file/665/s/webplayer/c/episode/SDCast-115.ogg"]

@@ -7,16 +7,22 @@ CAPTURE_URL=$2
 
 main() {
     log_i "Starting audio server..."
+    sleep 1
     run_audio_server
     log_i "Starting xvfb virtual display..."
+    sleep 1
     launch_xvfb
     log_i "Starting window manager..."
+    sleep 1
     launch_window_manager
     log_i "Starting VNC server..."
+    sleep 1
     run_vnc_server
     log_i "Starting chrome..."
+    sleep 1
     open_chrome
     log_i "Starting ffmpeg..."
+    sleep 1
     start_capturing
 }
 
